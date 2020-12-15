@@ -33,6 +33,8 @@ class AChristmasJamCharacter : public ACharacter
 		float PickDistance;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Parameter, meta = (AllowPrivateAccess = "true"))
 		float throwPower;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Parameter, meta = (AllowPrivateAccess = "true"))
+		TSubclassOf<AActor> PresentBP;
 
 	void Action();
 	void ChangeWeapon1();
