@@ -33,7 +33,6 @@ void AChristmasJamCharacter::Action()
 	else {
 		FHitResult hit;
 		FVector end = FirstPersonCameraComponent->GetComponentLocation() + FirstPersonCameraComponent->GetForwardVector() * PickDistance;
-		DrawDebugLine(GetWorld(), FirstPersonCameraComponent->GetComponentLocation(), end, FColor::Red,true);
 		if (GetWorld()->LineTraceSingleByChannel(hit, FirstPersonCameraComponent->GetComponentLocation(), end, ECollisionChannel::ECC_GameTraceChannel2))
 		{
 			present = hit.Actor.Get();
