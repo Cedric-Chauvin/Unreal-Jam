@@ -3,6 +3,8 @@
 #include "ChristmasJamProjectile.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "Components/SphereComponent.h"
+#include "GameFramework/Character.h"
+#include "Components/CapsuleComponent.h"
 
 AChristmasJamProjectile::AChristmasJamProjectile() 
 {
@@ -33,10 +35,15 @@ AChristmasJamProjectile::AChristmasJamProjectile()
 
 void AChristmasJamProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
 {
+	if (Cast<ACharacter>(OtherActor)) {
+		OtherComp->SetSimulatePhysics(true);
+		if (Cast<UCapsuleComponent>(OtherActor->GetRootComponent()))
+			OtherActor->GetRootComponent()->DestroyComponent();
+	}
 	// Only add impulse and destroy projectile if we hit a physics
 	if ((OtherActor != NULL) && (OtherActor != this) && (OtherComp != NULL) && OtherComp->IsSimulatingPhysics())
 	{
-		OtherComp->AddImpulseAtLocation(GetVelocity() * 100.0f, GetActorLocation());
+		OtherComp->AddImpulseAtLocation(GetVelocity()* ImpulsePower, GetActorLocation());
 
 		Destroy();
 	}
