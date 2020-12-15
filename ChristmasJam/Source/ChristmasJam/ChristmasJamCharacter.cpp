@@ -35,7 +35,13 @@ void AChristmasJamCharacter::Action()
 		FVector end = FirstPersonCameraComponent->GetComponentLocation() + FirstPersonCameraComponent->GetForwardVector() * PickDistance;
 		if (GetWorld()->LineTraceSingleByObjectType(hit, FirstPersonCameraComponent->GetComponentLocation(), end, ECollisionChannel::ECC_GameTraceChannel2))
 		{
-			present = hit.Actor.Get();
+			if (hit.Actor.Get()->ActorHasTag(FName("Spawn"))) {
+				present = GetWorld()->SpawnActor(PresentBP);
+				//present->Tags.Add(hit.Actor.Get()->Tags[1]);
+				present->SetActorLocation(hit.Actor.Get()->GetActorLocation());
+			}
+			else
+				present = hit.Actor.Get();
 			present->AttachToComponent(Mesh1P, FAttachmentTransformRules(EAttachmentRule::KeepWorld, true), TEXT("GripPoint"));
 			Cast<UStaticMeshComponent>(present->GetRootComponent())->SetSimulatePhysics(false);
 			FP_Gun->SetVisibility(false);
