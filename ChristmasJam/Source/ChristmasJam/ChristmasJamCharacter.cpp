@@ -33,7 +33,7 @@ void AChristmasJamCharacter::Action()
 	else {
 		FHitResult hit;
 		FVector end = FirstPersonCameraComponent->GetComponentLocation() + FirstPersonCameraComponent->GetForwardVector() * PickDistance;
-		if (GetWorld()->LineTraceSingleByChannel(hit, FirstPersonCameraComponent->GetComponentLocation(), end, ECollisionChannel::ECC_GameTraceChannel2))
+		if (GetWorld()->LineTraceSingleByObjectType(hit, FirstPersonCameraComponent->GetComponentLocation(), end, ECollisionChannel::ECC_GameTraceChannel2))
 		{
 			present = hit.Actor.Get();
 			present->AttachToComponent(Mesh1P, FAttachmentTransformRules(EAttachmentRule::KeepWorld, true), TEXT("GripPoint"));
