@@ -37,7 +37,7 @@ void AChristmasJamCharacter::Action()
 		{
 			if (hit.Actor.Get()->ActorHasTag(FName("Spawn"))) {
 				present = GetWorld()->SpawnActor(PresentBP);
-				//present->Tags.Add(hit.Actor.Get()->Tags[1]);
+				present->Tags.Add(hit.Actor.Get()->Tags[1]);
 				present->SetActorLocation(hit.Actor.Get()->GetActorLocation());
 			}
 			else
