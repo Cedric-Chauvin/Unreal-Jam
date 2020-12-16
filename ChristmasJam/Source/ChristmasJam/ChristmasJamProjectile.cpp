@@ -44,7 +44,6 @@ void AChristmasJamProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherA
 	if ((OtherActor != NULL) && (OtherActor != this) && (OtherComp != NULL) && OtherComp->IsSimulatingPhysics())
 	{
 		OtherComp->AddImpulseAtLocation(GetVelocity()* ImpulsePower, GetActorLocation());
-
-		Destroy();
 	}
+	Destroy();
 }
