@@ -45,7 +45,9 @@ void AChristmasJamProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherA
 	if ((OtherActor != NULL) && (OtherActor != this) && (OtherComp != NULL) && OtherComp->IsSimulatingPhysics())
 	{
 		OtherComp->AddImpulseAtLocation(GetVelocity()* ImpulsePower, GetActorLocation());
+		UGameplayStatics::PlaySound2D(GetWorld(), ScoreUp);
 		UGameplayStatics::PlaySound2D(GetWorld(), EnemyRagdoll);
+		OnEnemyHit();
 	}
 	Destroy();
 	UGameplayStatics::PlaySound2D(GetWorld(), EnemyHit);
