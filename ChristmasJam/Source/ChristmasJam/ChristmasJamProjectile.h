@@ -22,6 +22,11 @@ class AChristmasJamProjectile : public AActor
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Parameter, meta = (AllowPrivateAccess = "true"))
 		float ImpulsePower = 20;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay, meta = (AllowPrivateAccess = "true"))
+		class USoundBase* EnemyHit;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay, meta = (AllowPrivateAccess = "true"))
+		class USoundBase* EnemyRagdoll;
+
 public:
 	AChristmasJamProjectile();
 
