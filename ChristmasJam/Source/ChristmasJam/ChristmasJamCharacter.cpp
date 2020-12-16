@@ -57,6 +57,11 @@ void AChristmasJamCharacter::ChangeWeapon2()
 {
 }
 
+void AChristmasJamCharacter::TimerFunc()
+{
+	GetWorldTimerManager().ClearTimer(shootTimer);
+}
+
 AChristmasJamCharacter::AChristmasJamCharacter()
 {
 	// Set size for collision capsule
@@ -167,6 +172,10 @@ void AChristmasJamCharacter::OnFire()
 	}
 
 	// try and fire a projectile
+	if (GetWorldTimerManager().IsTimerActive(shootTimer))
+		return;
+	else
+		GetWorldTimerManager().SetTimer(shootTimer, this, &AChristmasJamCharacter::TimerFunc, ShootCooldown, true);
 	if (ProjectileClass != NULL)
 	{
 		UWorld* const World = GetWorld();

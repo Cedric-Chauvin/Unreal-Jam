@@ -35,11 +35,15 @@ class AChristmasJamCharacter : public ACharacter
 		float throwPower;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Parameter, meta = (AllowPrivateAccess = "true"))
 		TSubclassOf<AActor> PresentBP;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Parameter, meta = (AllowPrivateAccess = "true"))
+		float ShootCooldown;
 
 	void Action();
 	void ChangeWeapon1();
 	void ChangeWeapon2();
 
+	FTimerHandle shootTimer;
+	void TimerFunc();
 	AActor* present;
 
 public:
