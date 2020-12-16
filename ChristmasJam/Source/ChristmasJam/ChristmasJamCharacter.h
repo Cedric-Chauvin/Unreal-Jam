@@ -44,6 +44,8 @@ class AChristmasJamCharacter : public ACharacter
 
 	FTimerHandle shootTimer;
 	void TimerFunc();
+
+	UPROPERTY(BlueprintReadOnly, Category = Parameter, meta = (AllowPrivateAccess = "true"))
 	AActor* present;
 
 public:
