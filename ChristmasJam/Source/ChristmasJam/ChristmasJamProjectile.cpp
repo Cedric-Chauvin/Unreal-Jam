@@ -38,16 +38,17 @@ void AChristmasJamProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherA
 {
 	if (Cast<ACharacter>(OtherActor)) {
 		OtherComp->SetSimulatePhysics(true);
-		if (Cast<UCapsuleComponent>(OtherActor->GetRootComponent()))
+		if (Cast<UCapsuleComponent>(OtherActor->GetRootComponent())) {
 			OtherActor->GetRootComponent()->DestroyComponent();
+			UGameplayStatics::PlaySound2D(GetWorld(), ScoreUp);
+			UGameplayStatics::PlaySound2D(GetWorld(), EnemyRagdoll);
+			OnEnemyHit();
+		}
 	}
 	// Only add impulse and destroy projectile if we hit a physics
 	if ((OtherActor != NULL) && (OtherActor != this) && (OtherComp != NULL) && OtherComp->IsSimulatingPhysics())
 	{
 		OtherComp->AddImpulseAtLocation(GetVelocity()* ImpulsePower, GetActorLocation());
-		UGameplayStatics::PlaySound2D(GetWorld(), ScoreUp);
-		UGameplayStatics::PlaySound2D(GetWorld(), EnemyRagdoll);
-		OnEnemyHit();
 	}
 	Destroy();
 	UGameplayStatics::PlaySound2D(GetWorld(), EnemyHit);
