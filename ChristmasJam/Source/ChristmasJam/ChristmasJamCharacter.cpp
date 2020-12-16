@@ -23,9 +23,9 @@ void AChristmasJamCharacter::Action()
 	if (present) {
 		UStaticMeshComponent* mesh = Cast<UStaticMeshComponent>(present->GetRootComponent());
 		present->DetachFromActor(FDetachmentTransformRules(EDetachmentRule::KeepWorld, true));
+		UGameplayStatics::PlaySound2D(GetWorld(), PresentDrop);
 		if (mesh) {
 			mesh->SetSimulatePhysics(true);
-			mesh->AddImpulseAtLocation((FirstPersonCameraComponent->GetForwardVector() + GetActorUpVector()) * throwPower, present->GetActorLocation());
 		}
 		RemovePresent();
 	}
@@ -41,6 +41,7 @@ void AChristmasJamCharacter::Action()
 			}
 			else
 				present = hit.Actor.Get();
+			UGameplayStatics::PlaySound2D(GetWorld(), PresentPick);
 			present->AttachToComponent(Mesh1P, FAttachmentTransformRules(EAttachmentRule::KeepWorld, true), TEXT("GripPoint"));
 			Cast<UStaticMeshComponent>(present->GetRootComponent())->SetSimulatePhysics(false);
 			FP_Gun->SetVisibility(false);
@@ -173,6 +174,7 @@ void AChristmasJamCharacter::OnFire()
 		}
 		present = nullptr;
 		FP_Gun->SetVisibility(true);
+		UGameplayStatics::PlaySound2D(GetWorld(), PresentThrow);
 		return;
 	}
 
