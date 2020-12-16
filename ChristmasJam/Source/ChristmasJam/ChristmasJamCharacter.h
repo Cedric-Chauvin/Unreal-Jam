@@ -19,7 +19,7 @@ class AChristmasJamCharacter : public ACharacter
 
 	/** Gun mesh: 1st person view (seen only by self) */
 	UPROPERTY(VisibleDefaultsOnly, Category = Mesh)
-	class USkeletalMeshComponent* FP_Gun;
+	class UStaticMeshComponent* FP_Gun;
 
 	/** Location on gun mesh where projectiles should spawn. */
 	UPROPERTY(VisibleDefaultsOnly, Category = Mesh)
@@ -35,11 +35,15 @@ class AChristmasJamCharacter : public ACharacter
 		float throwPower;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Parameter, meta = (AllowPrivateAccess = "true"))
 		TSubclassOf<AActor> PresentBP;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Parameter, meta = (AllowPrivateAccess = "true"))
+		float ShootCooldown;
 
 	void Action();
 	void ChangeWeapon1();
 	void ChangeWeapon2();
 
+	FTimerHandle shootTimer;
+	void TimerFunc();
 	AActor* present;
 
 public:
