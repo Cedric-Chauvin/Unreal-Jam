@@ -5,6 +5,7 @@
 #include "Components/SphereComponent.h"
 #include "GameFramework/Character.h"
 #include "Components/CapsuleComponent.h"
+#include "Kismet/GameplayStatics.h"
 
 AChristmasJamProjectile::AChristmasJamProjectile() 
 {
@@ -44,6 +45,8 @@ void AChristmasJamProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherA
 	if ((OtherActor != NULL) && (OtherActor != this) && (OtherComp != NULL) && OtherComp->IsSimulatingPhysics())
 	{
 		OtherComp->AddImpulseAtLocation(GetVelocity()* ImpulsePower, GetActorLocation());
+		UGameplayStatics::PlaySound2D(GetWorld(), EnemyRagdoll);
 	}
 	Destroy();
+	UGameplayStatics::PlaySound2D(GetWorld(), EnemyHit);
 }
