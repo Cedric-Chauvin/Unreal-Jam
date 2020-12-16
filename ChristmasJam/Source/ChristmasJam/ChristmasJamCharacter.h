@@ -79,6 +79,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
 	class UAnimMontage* FireAnimation;
 
+	UFUNCTION(BlueprintCallable)
+		void RemovePresent();
+
 protected:
 	
 	/** Fires a projectile. */

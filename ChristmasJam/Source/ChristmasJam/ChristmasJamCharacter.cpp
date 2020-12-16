@@ -25,10 +25,9 @@ void AChristmasJamCharacter::Action()
 		present->DetachFromActor(FDetachmentTransformRules(EDetachmentRule::KeepWorld, true));
 		if (mesh) {
 			mesh->SetSimulatePhysics(true);
-			//mesh->AddImpulseAtLocation((FirstPersonCameraComponent->GetForwardVector() + GetActorUpVector()) * throwPower, present->GetActorLocation());
+			mesh->AddImpulseAtLocation((FirstPersonCameraComponent->GetForwardVector() + GetActorUpVector()) * throwPower, present->GetActorLocation());
 		}
-		present = nullptr;
-		FP_Gun->SetVisibility(true);
+		RemovePresent();
 	}
 	else {
 		FHitResult hit;
@@ -154,6 +153,12 @@ void AChristmasJamCharacter::SetupPlayerInputComponent(class UInputComponent* Pl
 	PlayerInputComponent->BindAxis("TurnRate", this, &AChristmasJamCharacter::TurnAtRate);
 	PlayerInputComponent->BindAxis("LookUp", this, &APawn::AddControllerPitchInput);
 	PlayerInputComponent->BindAxis("LookUpRate", this, &AChristmasJamCharacter::LookUpAtRate);
+}
+
+void AChristmasJamCharacter::RemovePresent()
+{
+	present = nullptr;
+	FP_Gun->SetVisibility(true);
 }
 
 void AChristmasJamCharacter::OnFire()
